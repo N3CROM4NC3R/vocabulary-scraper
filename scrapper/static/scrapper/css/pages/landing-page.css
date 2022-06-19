@@ -1,0 +1,48 @@
+.features__title-container{
+    background-image:url('../../images/First-wave.svg');
+    background-size: cover;
+    height:160px;
+}
+
+.features__title{
+    color:#FFFFFF;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.features__content{
+    background-image:url('../../images/Second-wave.svg');
+    background-size:cover;
+    height: 470px;
+}
+
+.features__arrow{
+    width: 100px;
+    height: 100px;
+}
+
+
+.footer{
+    height:100px;
+    background-color:#1C658C;
+    
+}
+
+.footer__title{
+    color:#FFFFFF;
+    margin:0px;
+}
+
+@media (min-width: 768px){
+
+    .features__first-translation-image{
+        width:200px;
+        height:200px;
+    }
+    .features__second-translation-image{
+        width:200px;
+        height:170px;
+    }
+
+
+}
