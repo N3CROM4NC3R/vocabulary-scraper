@@ -1,0 +1,13 @@
+.login__form-error{
+    width:280px;
+}
+
+.login__form-container{}
+
+.login__form{
+    background-color: #398AB9;
+    border-radius: 20px;
+    color: white;
+    width: 280px;
+}
+
