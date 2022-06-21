@@ -28,32 +28,33 @@
             </div>
                 
             <div class="app-wrapper">
-            
-                <div class="login__form-container container-sm">
-                    {% if form.errors %}
-                    <div class="login__form-error container alert alert-danger px-3"> 
-                        <p> Your email and password didn't match. Please try again. </p>
-                    </div>
-                    {% endif %}
+                <div class="d-flex align-items-center">
+                    <div class="login__form-container flex-grow-1 container-sm">
+                        {% if form.errors %}
+                        <div class="login__form-error container alert alert-danger px-3"> 
+                            <p> Your email and password didn't match. Please try again. </p>
+                        </div>
+                        {% endif %}
 
-                    <form class="login__form container py-3" method="post" action="{% url 'scrapper:login' %}">
-                        {% csrf_token %}
-                        <div class="form-group">
-                            {{ form.username.errors }}
-                            <label class="form-label" for="{{ form.username.auto_id }}">{{ form.username.label }}</label>
-                            {{ form.username }}
-                        </div>
-                        <div class="form-group">
-                            {{ form.password.errors }}
-                            <label class="form-label" for="{{ form.password.auto_id }}">{{ form.password.label }}</label>
-                            {{ form.password }}
-                        </div>
-                    
-                        <input class="button d-block mx-auto my-3" type="submit" value="login"/>
-                        <input type="hidden" name="next" value="{{ next }}"/>
+                        <form class="login__form container py-3" method="post" action="{% url 'scrapper:login' %}">
+                            {% csrf_token %}
+                            <div class="login__form-input form-group">
+                                {{ form.username.errors }}
+                                <label class="form-label" for="{{ form.username.auto_id }}">{{ form.username.label }}</label>
+                                {{ form.username }}
+                            </div>
+                            <div class="login__form-input form-group">
+                                {{ form.password.errors }}
+                                <label class="form-label" for="{{ form.password.auto_id }}">{{ form.password.label }}</label>
+                                {{ form.password }}
+                            </div>
                         
-                    
-                    </form>
+                            <input class="button button--login d-block mx-auto my-3" type="submit" value="login"/>
+                            <input type="hidden" name="next" value="{{ next }}"/>
+                            
+                        
+                        </form>
+                    </div>
                 </div>
             </div>
             <div class="footer d-flex justify-content-center align-items-center">
