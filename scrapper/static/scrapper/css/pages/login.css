@@ -1,5 +1,6 @@
 .login__form-error{
     width:280px;
+    border-radius: 20px;
 }
 
 .login__form-container{}
@@ -21,12 +22,15 @@
     }
     
     .login__form-input{
-        margin:40px 80px
+        margin:40px 80px;
     }
 
     .button--login{
         width: 325px;
     }
 
-
+    .login__form-error{
+        width:560px;
+        
+    }
 }
