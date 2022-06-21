@@ -142,6 +142,12 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'scrapper.CustomUser'
 AUTHENTICATION_BACKENDS = ['scrapper.backends.EmailBackend']
 
+CSRF_TRUSTED_ORIGINS = [
+    'https://vocabulary-scrapper.herokuapp.com',
+    'https://thawing-mountain-61550.herokuapp.com'
+]
+
+
 
 
 
