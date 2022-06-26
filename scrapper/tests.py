@@ -51,3 +51,57 @@ class LoginViewTest(TestCase):
         login = self.client.login(username = "admin",password = "12345")
 
         self.assertTrue(login)
+
+
+class TranslationViewTest(TestCase):
+    
+    def logged_user(self):
+        user = User.objects.create_user(username="testuser")
+        user.set_password("12345")
+        user.save()
+
+        self.client.login(username="testuser",password="12345")
+
+        return user
+
+
+    def test_guest_cant_access_page(self):
+
+        response = self.client.get(reverse("scrapper:translations"))
+        
+        self.assertEqual(response.status_code, 302)
+
+    def test_logged_user_can_access_page(self):
+
+        user = self.logged_user()
+
+
+        response = self.client.get(reverse("scrapper:translations"))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "scrapper/translations.html")
+
+    def test_logged_user_can_create_a_deck_with_translated_words(self):
+        
+        user = self.logged_user()
+
+        deck_name = "vocabulary.apkg"
+
+        options = {
+           
+        }
+
+        words = ["get"]
+
+        data = {
+            "deck_name" : deck_name,
+            "options":options,
+            "words" : words,
+            "principal-translation": True,
+            "additional-translation": True,
+            "compound-form" : True,
+            "verbal-elocution": True,
+        }
+
+        response = self.client.post(reverse("scrapper:translations"),data)
+        
+        self.assertEqual(response.get("Content-Disposition"),"attachment; filename=%s" % deck_name)
