@@ -1,0 +1,95 @@
+<html>
+    <head>
+        
+        
+        <title>Vocabulary Scrapper</title>
+        {% load static %}
+        
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     
+        <link href="{% static 'scrapper/css/bootstrap/bootstrap.min.css' %}" rel="stylesheet">
+        <script src="{% static 'scrapper/js/bootstrap/bootstrap.min.js'%}"></script>
+
+        <link href="{% static 'scrapper/css/normalize.css' %}" rel="stylesheet">
+        <link href="{% static 'scrapper/css/buttons.css'%}" rel="stylesheet"/>
+        <link href="{% static 'scrapper/css/navbar.css'%}" rel="stylesheet"/>
+        <link href="{% static 'scrapper/css/footer.css'%}" rel="stylesheet"/>
+        <link href="{% static 'scrapper/css/pages/translations.css'%}?={{ random_list | random }}" rel="stylesheet"/>
+        <link href="{% static 'scrapper/css/app.css'%}" rel="stylesheet"/>
+
+
+
+    </head>
+
+    <body>
+        <div class="app">
+            <div class="custom-navbar navbar ">
+                <ul class="nav">
+                    <li class="nav-item">Vocabulary</li>
+                </ul>
+            </div>
+                
+            <div class="app-wrapper">
+                <div class="translations container">
+                    <div class="translations__tabs d-flex justify-content-center">
+                        <div class="translations__translation-tab mx-5">
+                            <a href="">Translations</a>
+                        </div>
+                        <div class="translations__definition-tab mx-5">
+                            <a href="">Definitions</a>
+                        </div>
+                    </div>
+                    <div class="translations__container d-flex mx-auto justify-content-center">
+                        <form class="translations__form d-flex flex-column">
+                            <div class="d-md-flex justify-content-md-between align-items-center">
+                                <div class="translations__word-form">
+                                    <div class="translations__input-container d-flex form-group">
+                                        <input class="translations__input" placeholder="Put a word">
+                                        <div class="translations__button" id="new-word-button">
+                                            <img src="{% static 'scrapper/images/add.svg' %}" />
+                                        </div>
+                                    </div>
+                                    <div class="translations__word-list">
+                                    </div>
+                                </div>
+                                <div class="translations__option-form">
+                                    <div class="translations__deck-name">
+                                        <label class="label-form " for="deck-name">Deck name</label>
+                                        <input class="translations__deck-name-input form-control" type="text" required>
+                                    </div>
+
+                                    <div class="translations__principal-translation d-flex justify-content-between">
+                                        <label for="principal-translation" class="form-label">Principal translation</label>
+                                        <input name="principal-translation" id="principal-translation" type="checkbox">
+                                    </div>
+                                    <div class="translations__additional-translation d-flex justify-content-between">
+                                        <label for="additional-translation" class="form-label">Additional translation</label>
+                                        <input name="additional-translation" id="additional-translation" type="checkbox">
+                                    </div>
+                                    <div class="translations__compound-translation d-flex justify-content-between">
+                                        <label for="compound-translation" class="form-label">Compound form</label>
+                                        <input name="compound-translation" id="compound-translation" type="checkbox">
+                                    </div>
+                                    <div class="translations__verb-locution d-flex justify-content-between">
+                                        <label for="verb-locution" class="form-label">Verb locution</label>
+                                        <input name="verb-locution" id="verb-locution" type="checkbox">
+                                    </div>
+                                </div>
+                            </div>
+                            <input type="submit" class="button mt-3" value="Create deck"/>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="footer d-flex justify-content-center align-items-center">
+                <h1 class="footer__title">Vocabulary</h1>
+            </div>
+        </div>
+        
+
+    </body>
+
+
+
+</html>

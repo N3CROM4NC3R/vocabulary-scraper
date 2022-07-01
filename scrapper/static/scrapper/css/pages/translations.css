@@ -1,0 +1,145 @@
+.translations{}
+
+.translations__tabs{}
+
+.translations__translation-tab,
+.translations__definition-tab{
+    background-color: #398AB9;
+    padding: 5px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;   
+  
+}
+
+.translations__translation-tab > a,
+.translations__definition-tab > a{
+    color:#FFFFFF;
+    font-size:bold;
+    text-decoration-line: none;
+    text-shadow: 
+        0px .1px white,
+        0px -.1px white,
+        .1px 0px white,
+        -.1px 0px white,
+        .1px .1px white,
+        -.1px .1px white,
+        .1px -.1px white,
+        -.1px -.1px white;
+}
+
+
+.translations__container{
+    background-color:#EEEEEE;
+    padding:60px 35px;
+    min-width:280px;
+    margin: 0px 25px 35px 25px;
+    border-radius:20px;
+    box-shadow: 10px 10px 4px #CCCCCC;
+}
+
+.translations__form{
+    width: 260px;
+}
+
+.translations__input-container{
+    background-color:#1C658C;
+    padding:24px 32px 5px 24px;
+    border-top-left-radius:20px;
+    border-top-right-radius:20px;
+
+
+}
+
+.translations__input{
+    background-color:#1C658C;
+    width:130px;
+    height:24px;
+    color:#FFFFFF;
+    border-width:0px 0px 1px 0px;
+    border-radius: 0px;
+    border-color: #FFFFFF;
+    color:#FFFFFF;
+}
+
+.translations__input::placeholder{ 
+    color:#FFFFFF;
+    opacity:0.8;
+}
+
+.translations__input:focus{
+    background-color:transparent;
+    border-width:0px 0px 2px 0px;
+    border-radius: 0px;
+    border-color: #FFFFFF;
+    color:#FFFFFF;
+}
+
+.translations__button{
+    margin-left:10px;
+}
+
+.translations__button > img{
+    width: 23px;
+    height: 23px;
+}
+
+.translations__word-list{
+    height:300px;
+    background-color:#398AB9;
+    border-bottom-left-radius:20px;
+    border-bottom-right-radius:20px;
+
+}
+
+.translations__option-form{
+    height:270px;
+    background-color:#398AB9;
+    border-radius:20px;
+    margin-top:15px;
+    color:#FFFFFF;
+    padding:15px 20px;
+}
+
+.translations__deck-name-input{
+    height:20px;
+    border-radius:5px;
+    margin-bottom:30px;
+    
+}
+
+@media (min-width:768px){
+    .translations__container{
+        max-width:850px;
+    }
+    .translations__form{
+        width: 100%;
+    }
+    .translations__word-form{
+        width:50%;
+        margin-right: 10px;
+    }
+    .translations__option-form{
+        width:50%;
+        margin-left: 10px;
+    }
+    .translations__input{
+        width:300px;
+    }
+
+    .translations__word-form,
+    .translations__option-form{
+        height:300px;
+        margin-top:0;
+
+    }
+
+    .translations__input-container{
+        height:20%;
+    }
+    .translations__word-list{
+        height:80%;
+    }
+    
+
+    
+}
