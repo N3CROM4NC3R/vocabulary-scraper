@@ -45,13 +45,12 @@ class TranslationsPageView(TemplateView):
         return context
     def post(self, request, *args, **kwargs):
 
-        words = request.POST.getlist("words")
-
+        words = request.POST.getlist("words[]")
         options = {
-            "principal-translation"  : bool(request.POST["principal-translation"]),
-            "additional-translation" : bool(request.POST["additional-translation"]),
-            "compound-form"          : bool(request.POST["compound-form"]),
-            "verbal-elocution"       : bool(request.POST["verbal-elocution"])
+            "principal-translation"  : bool(request.POST.get("principal-translation",False)),
+            "additional-translation" : bool(request.POST.get("additional-translation",False)),
+            "compound-form"          : bool(request.POST.get("compound-form",False)),
+            "verbal-elocution"       : bool(request.POST.get("verbal-elocution",False))
         }
         deck_name = request.POST["deck_name"]
         
@@ -65,7 +64,7 @@ class TranslationsPageView(TemplateView):
         
         response = HttpResponse(path, content_type=mime_type)
         
-        response['Content-Disposition'] = "attachment; filename=%s" % deck_name
+        response['Content-Disposition'] = "attachment; filename=%s.apkg" % deck_name
 
         return response
 

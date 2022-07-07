@@ -7,10 +7,10 @@ function app(){
     function editWord(e){
         wordInput = e.target.parentElement.previousElementSibling;
         
-        wordInput.disabled = false;
+        wordInput.removeAttribute("readonly");
         wordInput.focus();
         wordInput.addEventListener("focusout",(e)=>{
-            e.target.disabled = true;
+            e.target.setAttribute("readonly",null);
         });
     }
 
@@ -27,10 +27,12 @@ function app(){
         newWordContainer.classList.add("mt-3");
         newWordInput = document.createElement("input");
         newWordInput.classList.add("translations__input");
-        newWordInput.name = ""
+        newWordInput.name = 'words[]';
+        newWordInput.type = "text";
+        newWordInput.classList.add("translations__input--list");
         newWordContent = translationWordInput.value;
         newWordInput.value = newWordContent;
-        newWordInput.disabled = true;
+        newWordInput.setAttribute("readonly",true);
         newWordContainer.appendChild(newWordInput);
 
         newWordEditButton = document.createElement("div");
@@ -39,7 +41,7 @@ function app(){
         editIcon.classList.add("fa-pen");
         editIcon.classList.add("translations__icon");
         newWordEditButton.appendChild(editIcon);
-        //TODO: Add the edit event to the button
+        
         newWordEditButton.addEventListener("click",editWord);
 
 

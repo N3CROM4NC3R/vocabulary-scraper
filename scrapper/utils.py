@@ -3,6 +3,8 @@ import random
 from datetime import datetime
 import requests
 from bs4 import BeautifulSoup
+from django.conf import settings
+
 
 from django.core.files import File
 from django.core.files.storage import default_storage
@@ -277,12 +279,12 @@ class VocabularyAnkiDeckCreator():
         
         _deck_name += ".apkg" if not (".apkg" in _deck_name) else ""
         
-        f = open(_deck_name, "a+",encoding="utf8")
+        f = open("%s/%scopy" %(settings.MEDIA_ROOT,_deck_name), "a+",encoding="utf8")
 
-        file = default_storage.save(_deck_name,File(f))
+        file = default_storage.save(_deck_name,f)
         
         file_absolute_route = default_storage.path(file)
-        
+
         package.write_to_file(file_absolute_route)
     
         return file_absolute_route

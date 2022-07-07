@@ -41,7 +41,9 @@
                         </div>
                     </div>
                     <div class="translations__container d-flex mx-auto justify-content-center">
-                        <form class="translations__form d-flex flex-column">
+                        <form class="translations__form d-flex flex-column" method="POST" action="{% url 'scrapper:translations' %}">
+                            {% csrf_token %}
+                            
                             <div class="d-md-flex justify-content-md-between align-items-center">
                                 <div class="translations__word-form">
                                     <div class="translations__input-container d-flex form-group">
@@ -56,7 +58,7 @@
                                 <div class="translations__option-form">
                                     <div class="translations__deck-name">
                                         <label class="label-form " for="deck-name">Deck name</label>
-                                        <input class="translations__deck-name-input form-control" type="text" required>
+                                        <input name="deck_name" class="translations__deck-name-input form-control" type="text" required>
                                     </div>
 
                                     <div class="translations__principal-translation d-flex justify-content-between">
@@ -68,12 +70,12 @@
                                         <input name="additional-translation" id="additional-translation" type="checkbox">
                                     </div>
                                     <div class="translations__compound-translation d-flex justify-content-between">
-                                        <label for="compound-translation" class="form-label">Compound form</label>
-                                        <input name="compound-translation" id="compound-translation" type="checkbox">
+                                        <label for="compound-form" class="form-label">Compound form</label>
+                                        <input name="compound-form" id="compound-translation" type="checkbox">
                                     </div>
                                     <div class="translations__verb-locution d-flex justify-content-between">
                                         <label for="verb-locution" class="form-label">Verb locution</label>
-                                        <input name="verb-locution" id="verb-locution" type="checkbox">
+                                        <input name="verbal-elocution" id="verb-locution" type="checkbox">
                                     </div>
                                 </div>
                             </div>
