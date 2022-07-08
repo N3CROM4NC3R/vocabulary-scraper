@@ -9,6 +9,7 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.contrib.auth import logout
 import mimetypes
+from django.views.decorators.csrf import csrf_exempt
 
 from .decorators import anonymous_required
 
@@ -28,6 +29,7 @@ class LandingPageView(TemplateView):
 
         return context
 
+@csrf_exempt
 class LoginPageView(LoginView):
     template_name = "scrapper/login.html"
     next_page = reverse_lazy("scrapper:translations")
@@ -41,7 +43,6 @@ class LoginPageView(LoginView):
 
         context["random_list"] = range(1,100000)
         return context
-
 
 @method_decorator(login_required, name="dispatch")
 class TranslationsPageView(TemplateView):
