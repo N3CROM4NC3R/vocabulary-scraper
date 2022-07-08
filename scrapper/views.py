@@ -29,7 +29,7 @@ class LandingPageView(TemplateView):
 
         return context
 
-@csrf_exempt
+
 class LoginPageView(LoginView):
     template_name = "scrapper/login.html"
     next_page = reverse_lazy("scrapper:translations")
