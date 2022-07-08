@@ -84,7 +84,7 @@ class TranslationViewTest(TestCase):
         
         user = self.logged_user()
 
-        deck_name = "vocabulary.apkg"
+        deck_name = "vocabulary"
 
         options = {
            
@@ -104,4 +104,23 @@ class TranslationViewTest(TestCase):
 
         response = self.client.post(reverse("scrapper:translations"),data)
         
-        self.assertEqual(response.get("Content-Disposition"),"attachment; filename=%s" % deck_name)
+        self.assertEqual(response.get("Content-Disposition"),"attachment; filename=%s.apkg" % deck_name)
+    def test_logged_user_is_redirected_when_access_login_page(self):
+
+        user = self.logged_user()
+
+        response = self.client.get(reverse("scrapper:login"))
+
+        self.assertEqual(response.status_code,302)
+        self.assertEqual(response['location'], reverse("scrapper:translations"))
+
+    def test_logged_user_is_redirected_when_access_login_page(self):
+
+        user = self.logged_user()
+
+        response = self.client.get(reverse("scrapper:landingPage"))
+
+        self.assertEqual(response.status_code,302)
+        self.assertEqual(response['location'], reverse("scrapper:translations"))
+
+        

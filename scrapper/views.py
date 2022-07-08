@@ -1,5 +1,5 @@
-from django.shortcuts import render
-from django.urls import reverse
+from django.shortcuts import redirect, render
+from django.urls import reverse, reverse_lazy
 from django.http import HttpResponse
 from django.views.generic.base import TemplateView
 from django.contrib.auth.views import LoginView
@@ -7,10 +7,19 @@ from scrapper.forms import AuthenticationFormWithBootstrapClasses
 from .utils import WordreferenceScrapper
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
+from django.contrib.auth import logout
 import mimetypes
+
+from .decorators import anonymous_required
+
+
 
 class LandingPageView(TemplateView):
     template_name = "scrapper/landing-page.html"
+
+    @method_decorator(anonymous_required(redirect_url=reverse_lazy("scrapper:translations")))
+    def dispatch(self,request,*args, **kwargs):
+        return super().dispatch(request,*args,**kwargs)
 
     def get_context_data(self,**kwargs):
         context = super().get_context_data(**kwargs)
@@ -21,10 +30,11 @@ class LandingPageView(TemplateView):
 
 class LoginPageView(LoginView):
     template_name = "scrapper/login.html"
-    #next_page = reverse("scrapper:landing-page")
+    next_page = reverse_lazy("scrapper:translations")
 
     authentication_form = AuthenticationFormWithBootstrapClasses
 
+    
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -70,7 +80,10 @@ class TranslationsPageView(TemplateView):
 
 
 
+def logout_view(request):
+    logout(request)
 
+    return redirect(reverse_lazy("scrapper:landingPage"))
 
 
 
