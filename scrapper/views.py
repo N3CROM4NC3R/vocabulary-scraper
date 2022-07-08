@@ -52,6 +52,8 @@ class TranslationsPageView(TemplateView):
 
         context["random_list"] = range(1,100000)
 
+        context["request"] = self.request
+
         return context
     def post(self, request, *args, **kwargs):
 

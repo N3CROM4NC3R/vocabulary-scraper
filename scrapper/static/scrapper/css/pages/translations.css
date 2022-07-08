@@ -116,8 +116,16 @@
     color:#FFFFFF;
     font-size:24px;
 }
+.navbar-brand--custom:hover,
+.navbar-brand--custom{
+    color:#FFFFFF;
+}
 
-
+.nav-link--custom,
+.nav-link--custom:focus,
+.nav-link--custom:hover{
+    color:#FFFFFF;
+}
 
 @media (min-width:768px){
     .translations__container{
