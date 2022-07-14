@@ -1,6 +1,6 @@
 from django.shortcuts import redirect, render
 from django.urls import reverse, reverse_lazy
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.views.generic.base import TemplateView
 from django.contrib.auth.views import LoginView
 from scrapper.forms import AuthenticationFormWithBootstrapClasses
@@ -69,15 +69,19 @@ class TranslationsPageView(TemplateView):
         
         wordreference_scrapper = WordreferenceScrapper(words, options, deck_name)
         
-        file_absolute_url = wordreference_scrapper.start()
+        #file_absolute_url = wordreference_scrapper.start()
         
-        path = open(file_absolute_url, 'rb')
+        file = wordreference_scrapper.start()
 
-        mime_type = mimetypes.guess_type(file_absolute_url)
+        #path = open(file_absolute_url, 'rb')
+        url = file["secure_url"]
+
+
+        mime_type = mimetypes.guess_type(url)
         
-        response = HttpResponse(path, content_type=mime_type)
+        response = HttpResponseRedirect(url)
         
-        response['Content-Disposition'] = "attachment; filename=%s.apkg" % deck_name
+        #response['Content-Disposition'] = "attachment; filename=%s.apkg" % deck_name
 
         return response
 

@@ -6,6 +6,9 @@ from bs4 import BeautifulSoup
 from django.conf import settings
 
 
+import tempfile
+import cloudinary.uploader
+import cloudinary
 from django.core.files import File
 from django.core.files.storage import default_storage
 
@@ -50,9 +53,14 @@ class WordreferenceScrapper ():
     
         self.list_anki_notes = _list_anki_notes
 
-        file_absolute_url = self.create_anki_deck()
+        file = self.create_anki_deck()
 
-        return file_absolute_url 
+        return file
+        
+        #file_absolute_url = self.create_anki_deck()
+
+        
+        #return file_absolute_url 
 
     def request(self, word):
         
@@ -158,10 +166,16 @@ class WordreferenceScrapper ():
         
         vocabulary_anki_deck_creator_object = VocabularyAnkiDeckCreator(_list_anki_notes, _deck_name)
 
-        file_absolute_url = vocabulary_anki_deck_creator_object.create()    
+        #file_absolute_url = vocabulary_anki_deck_creator_object.create()    
 
 
-        return file_absolute_url
+        #return file_absolute_url
+
+        file = vocabulary_anki_deck_creator_object.create()
+
+
+        return file
+
 
 
 
@@ -269,9 +283,6 @@ class VocabularyAnkiDeckCreator():
 
         package = genanki.Package(my_deck)
         
-        
-
-
         if( self.deck_name == ""):
             self.create_deck_name()
 
@@ -279,15 +290,20 @@ class VocabularyAnkiDeckCreator():
         
         _deck_name += ".apkg" if not (".apkg" in _deck_name) else ""
         
-        f = open("%s/%scopy" %(settings.MEDIA_ROOT,_deck_name), "a+",encoding="utf8")
+        #f = open("%s/%scopy" %(settings.MEDIA_ROOT,_deck_name), "a+",encoding="utf8")
+        f = tempfile.NamedTemporaryFile()
+        f.name = _deck_name
+        package.write_to_file(f)
+        f.seek(0)
 
-        file = default_storage.save(_deck_name,f)
+
         
-        file_absolute_route = default_storage.path(file)
-
-        package.write_to_file(file_absolute_route)
+        file = cloudinary.uploader.upload(f,resource_type="raw")
+        #file = default_storage.save(_deck_name,f)
     
-        return file_absolute_route
+
+    
+        return file
 
 
     def create_deck_name(self):
