@@ -66,7 +66,7 @@ class WordreferenceScrapper ():
         
         self.url = self.wordreference_url + "?tranword=" + word
 
-        response = requests.get(self.url)
+        response = requests.get(self.url,timeout=5)
         
 
         return response.text
