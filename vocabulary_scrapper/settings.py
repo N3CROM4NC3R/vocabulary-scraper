@@ -38,7 +38,7 @@ SECRET_KEY = 'django-insecure-bbuckxmhecb9i$ywq4dv_0dxdv=xvwjya*(!$ja=#+^=hqyo0e
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['0.0.0.0','127.0.0.1','localhost']
+ALLOWED_HOSTS = ['*']
 
 MEDIA_DIR = BASE_DIR / 'media'
 MEDIA_ROOT = MEDIA_DIR
@@ -142,6 +142,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
 STATIC_URL = 'static/'
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
@@ -155,11 +157,3 @@ CSRF_TRUSTED_ORIGINS = [
     'https://vocabulary-scrapper.herokuapp.com',
     'https://thawing-mountain-61550.herokuapp.com'
 ]
-
-
-
-
-
-
-import django_heroku
-django_heroku.settings(locals())
