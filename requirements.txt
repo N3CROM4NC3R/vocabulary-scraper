@@ -19,6 +19,7 @@ docutils==0.17.1
 et-xmlfile==1.1.0
 frozendict==2.0.6
 genanki==0.11.0
+gunicorn==20.0.4
 h11==0.13.0
 idna==3.2
 importlib-metadata==4.8.1
