@@ -38,7 +38,7 @@ SECRET_KEY = 'django-insecure-bbuckxmhecb9i$ywq4dv_0dxdv=xvwjya*(!$ja=#+^=hqyo0e
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['0.0.0.0','127.0.0.1','localhost']
+ALLOWED_HOSTS = ['0.0.0.0','127.0.0.1','localhost',"vocabulary-scrapper-envb.eba-km8vb895.sa-east-1.elasticbeanstalk.com"]
 
 MEDIA_DIR = BASE_DIR / 'media'
 MEDIA_ROOT = MEDIA_DIR
@@ -153,13 +153,7 @@ AUTHENTICATION_BACKENDS = ['scrapper.backends.EmailBackend']
 
 CSRF_TRUSTED_ORIGINS = [
     'https://vocabulary-scrapper.herokuapp.com',
-    'https://thawing-mountain-61550.herokuapp.com'
+    'https://thawing-mountain-61550.herokuapp.com',
+    'vocabulary-scrapper-envb.eba-km8vb895.sa-east-1.elasticbeanstalk.com'
 ]
 
-
-
-
-
-
-import django_heroku
-django_heroku.settings(locals())
