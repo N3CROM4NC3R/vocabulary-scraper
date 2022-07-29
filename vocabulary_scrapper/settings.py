@@ -154,6 +154,5 @@ AUTHENTICATION_BACKENDS = ['scrapper.backends.EmailBackend']
 CSRF_TRUSTED_ORIGINS = [
     'https://vocabulary-scrapper.herokuapp.com',
     'https://thawing-mountain-61550.herokuapp.com',
-    'vocabulary-scrapper-envb.eba-km8vb895.sa-east-1.elasticbeanstalk.com'
 ]
 
