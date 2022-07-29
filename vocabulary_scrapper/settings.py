@@ -38,6 +38,7 @@ SECRET_KEY = 'django-insecure-bbuckxmhecb9i$ywq4dv_0dxdv=xvwjya*(!$ja=#+^=hqyo0e
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+SECURE_SSL_REDIRECT = False
 ALLOWED_HOSTS = ['0.0.0.0','127.0.0.1','localhost',"vocabulary-scrapper-dev.sa-east-1.elasticbeanstalk.com"]
 
 MEDIA_DIR = BASE_DIR / 'media'
