@@ -1,0 +1,24 @@
+.button{
+    background-color:#1C658C;
+    color:#FFFFFF;
+    padding:10px 40px;
+    border-radius: 10px;
+    text-decoration: none;
+    text-shadow: 
+        0px .5px white,
+        0px -.5px white,
+        .5px 0px white,
+        -.5px 0px white,
+        .5px .5px white,
+        -.5px .5px white,
+        .5px -.5px white,
+        -.5px -.5px white;
+    box-shadow: 3px 3px #296081;
+    border:0px;
+}
+
+.button:hover{
+    background-color:#3B8EB9;
+    color:#FFFFFF;
+    text-decoration: none;
+}
