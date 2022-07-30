@@ -39,7 +39,14 @@ SECRET_KEY = 'django-insecure-bbuckxmhecb9i$ywq4dv_0dxdv=xvwjya*(!$ja=#+^=hqyo0e
 DEBUG = True
 
 SECURE_SSL_REDIRECT = False
-ALLOWED_HOSTS = ['0.0.0.0','127.0.0.1','localhost',"vocabulary-scrapper-dev.sa-east-1.elasticbeanstalk.com"]
+ALLOWED_HOSTS = [
+    '0.0.0.0',
+    '127.0.0.1',
+    'localhost',
+    "http://vocabulary-scrapper-dev.sa-east-1.elasticbeanstalk.com/",
+    "http://vocabulary-scrapper-dev.sa-east-1.elasticbeanstalk.com",
+    "vocabulary-scrapper-dev.sa-east-1.elasticbeanstalk.com"
+]
 
 MEDIA_DIR = BASE_DIR / 'media'
 MEDIA_ROOT = MEDIA_DIR
