@@ -65,13 +65,13 @@ class WordreferenceScrapper ():
     def request(self, word):
         
         self.url = self.wordreference_url + "?tranword=" + word
-
+        self.url = "http://api.scraperapi.com?api_key=f58a320d5f2cfdbc2e354eca449ac7eb&url=" + self.url
         headers = {
             'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36'
         }
 
 
-        response = requests.get(self.url,timeout=5,headers = headers)
+        response = requests.get(self.url,timeout=60,headers = headers)
         print(response.request.headers)
 
         return response.text
