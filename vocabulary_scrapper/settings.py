@@ -46,7 +46,8 @@ ALLOWED_HOSTS = [
     "http://vocabulary-scrapper-dev.sa-east-1.elasticbeanstalk.com/",
     "http://vocabulary-scrapper-dev.sa-east-1.elasticbeanstalk.com",
     "vocabulary-scrapper-dev.sa-east-1.elasticbeanstalk.com",
-    "172.31.15.67"
+    "172.31.15.67",
+    "vocabulary-scrapper-dev2.sa-east-1.elasticbeanstalk.com"
 ]
 
 MEDIA_DIR = BASE_DIR / 'media'
