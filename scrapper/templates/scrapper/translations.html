@@ -12,6 +12,7 @@
         <script src="{% static 'scrapper/js/bootstrap/bootstrap.bundle.min.js'%}"></script>
 
         <script src="https://kit.fontawesome.com/5e4402aed6.js" crossorigin="anonymous"></script>
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
         <link href="{% static 'scrapper/css/normalize.css' %}" rel="stylesheet">
         <link href="{% static 'scrapper/css/buttons.css'%}" rel="stylesheet"/>
@@ -19,7 +20,7 @@
         <link href="{% static 'scrapper/css/footer.css'%}" rel="stylesheet"/>
         <link href="{% static 'scrapper/css/pages/translations.css'%}?={{ random_list | random }}" rel="stylesheet"/>
         <link href="{% static 'scrapper/css/app.css'%}" rel="stylesheet"/>
-
+        
 
 
     </head>
@@ -56,7 +57,7 @@
                         </div>
                     </div>
                     <div class="translations__container d-flex mx-auto justify-content-center">
-                        <form class="translations__form d-flex flex-column" method="POST" action="{% url 'scrapper:translations' %}">
+                        <form class="translations__form d-flex flex-column" id="translations-form" method="POST" action="{% url 'scrapper:translations' %}">
                             {% csrf_token %}
                             
                             <div class="d-md-flex justify-content-md-between align-items-center">
@@ -73,7 +74,7 @@
                                 <div class="translations__option-form">
                                     <div class="translations__deck-name">
                                         <label class="label-form " for="deck-name">Deck name</label>
-                                        <input name="deck_name" class="translations__deck-name-input form-control" type="text" required>
+                                        <input name="deck_name" id="deck_name" class="translations__deck-name-input form-control" type="text" required>
                                     </div>
 
                                     <div class="translations__principal-translation d-flex justify-content-between">
@@ -94,7 +95,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <input type="submit" class="button mt-3" value="Create deck"/>
+                            <input type="submit" class="button mt-3" id="submit-button" value="Create deck"/>
 
                         </form>
                     </div>

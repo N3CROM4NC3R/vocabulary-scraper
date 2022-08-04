@@ -1,6 +1,6 @@
-from django.shortcuts import redirect, render
-from django.urls import reverse, reverse_lazy
-from django.http import HttpResponse, HttpResponseRedirect
+from django.shortcuts import redirect
+from django.urls import  reverse_lazy
+from django.http import JsonResponse
 from django.views.generic.base import TemplateView
 from django.contrib.auth.views import LoginView
 from scrapper.forms import AuthenticationFormWithBootstrapClasses
@@ -8,12 +8,10 @@ from .utils import WordreferenceScrapper
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.contrib.auth import logout
-import mimetypes
-from django.views.decorators.csrf import csrf_exempt
+
+import json
 
 from .decorators import anonymous_required
-
-
 
 class LandingPageView(TemplateView):
     template_name = "scrapper/landing-page.html"
@@ -58,30 +56,30 @@ class TranslationsPageView(TemplateView):
         return context
     def post(self, request, *args, **kwargs):
 
-        words = request.POST.getlist("words[]")
+        
+        data = json.loads(request.body)
+     
         options = {
-            "principal-translation"  : bool(request.POST.get("principal-translation",False)),
-            "additional-translation" : bool(request.POST.get("additional-translation",False)),
-            "compound-form"          : bool(request.POST.get("compound-form",False)),
-            "verbal-elocution"       : bool(request.POST.get("verbal-elocution",False))
+            "principal-translation"  : bool(data.get("principal-translation",False)),
+            "additional-translation" : bool(data.get("additional-translation",False)),
+            "compound-form"          : bool(data.get("compound-form",False)),
+            "verbal-elocution"       : bool(data.get("verbal-elocution",False))
         }
-        deck_name = request.POST["deck_name"]
+        deck_name = data["deck_name"]
+        words = data["words"]
         
         wordreference_scrapper = WordreferenceScrapper(words, options, deck_name)
         
-        #file_absolute_url = wordreference_scrapper.start()
-        
         file = wordreference_scrapper.start()
 
-        #path = open(file_absolute_url, 'rb')
         url = file["secure_url"]
-
-
-        mime_type = mimetypes.guess_type(url)
         
-        response = HttpResponseRedirect(url)
-        
-        #response['Content-Disposition'] = "attachment; filename=%s.apkg" % deck_name
+        response_data = {
+            'status':"ok",
+            'downloadUrl':url
+        }
+
+        response = JsonResponse(response_data)
 
         return response
 
