@@ -127,6 +127,12 @@
     color:#FFFFFF;
 }
 
+.loader{
+    border-color: #FFFFFF transparent #FFFFFF;
+    width:150px;
+    height:150px;
+}
+
 @media (min-width:768px){
     .translations__container{
         max-width:850px;
