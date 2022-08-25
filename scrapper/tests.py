@@ -114,13 +114,5 @@ class TranslationViewTest(TestCase):
         self.assertEqual(response.status_code,302)
         self.assertEqual(response['location'], reverse("scrapper:translations"))
 
-    def test_logged_user_is_redirected_when_access_login_page(self):
-
-        user = self.logged_user()
-
-        response = self.client.get(reverse("scrapper:landingPage"))
-
-        self.assertEqual(response.status_code,302)
-        self.assertEqual(response['location'], reverse("scrapper:translations"))
 
         
