@@ -103,8 +103,15 @@ class TranslationViewTest(TestCase):
         }
 
         response = self.client.post(reverse("scrapper:translations"),data)
-        
-        self.assertEqual(response.get("Content-Disposition"),"attachment; filename=%s.apkg" % deck_name)
+        print(response.status_code)
+
+        self.assertEqual(response.status_code, 302)
+
+        redirected_url = response["Location"]
+
+        self.assertContains(redirected_url,"https://res.cloudinary.com")
+
+
     def test_logged_user_is_redirected_when_access_login_page(self):
 
         user = self.logged_user()
