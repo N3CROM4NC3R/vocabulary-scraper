@@ -103,13 +103,12 @@ class TranslationViewTest(TestCase):
         }
 
         response = self.client.post(reverse("scrapper:translations"),data)
-        print(response.status_code)
 
         self.assertEqual(response.status_code, 302)
 
         redirected_url = response["Location"]
 
-        self.assertContains(redirected_url,"https://res.cloudinary.com")
+        self.assertIn("https://res.cloudinary.com", redirected_url)
 
 
     def test_logged_user_is_redirected_when_access_login_page(self):
