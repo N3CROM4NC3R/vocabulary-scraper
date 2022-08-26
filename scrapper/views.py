@@ -59,30 +59,24 @@ class TranslationsPageView(TemplateView):
     def post(self, request, *args, **kwargs):
 
         words = request.POST.getlist("words[]")
+        
         options = {
             "principal-translation"  : bool(request.POST.get("principal-translation",False)),
             "additional-translation" : bool(request.POST.get("additional-translation",False)),
             "compound-form"          : bool(request.POST.get("compound-form",False)),
             "verbal-elocution"       : bool(request.POST.get("verbal-elocution",False))
         }
+
         deck_name = request.POST["deck_name"]
         
         wordreference_scrapper = WordreferenceScrapper(words, options, deck_name)
         
-        #file_absolute_url = wordreference_scrapper.start()
-        
         file = wordreference_scrapper.start()
 
-        #path = open(file_absolute_url, 'rb')
         url = file["secure_url"]
-
-
-        mime_type = mimetypes.guess_type(url)
         
         response = HttpResponseRedirect(url)
         
-        #response['Content-Disposition'] = "attachment; filename=%s.apkg" % deck_name
-
         return response
 
 
