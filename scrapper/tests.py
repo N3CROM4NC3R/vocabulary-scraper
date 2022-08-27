@@ -40,8 +40,6 @@ class LoginViewTest(TestCase):
         self.assertTemplateUsed(response, 'scrapper/login.html')
 
 
-
-
     def test_guest_can_log_in(self):
 
         user = User.objects.create_user(username="admin")
