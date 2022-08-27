@@ -4,7 +4,8 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.views.generic.base import TemplateView
 from django.contrib.auth.views import LoginView
 from scrapper.forms import AuthenticationFormWithBootstrapClasses
-from .utils import WordreferenceScrapper
+from .utils import VocabularyAnkiDeckCreator
+from wordreference_scraper.wordreference_scraper import WordreferenceScraper
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.contrib.auth import logout
@@ -69,17 +70,19 @@ class TranslationsPageView(TemplateView):
 
         deck_name = request.POST["deck_name"]
         
-        wordreference_scrapper = WordreferenceScrapper(words, options, deck_name)
-        
-        file = wordreference_scrapper.start()
+        wordreference_scraper = WordreferenceScraper(words)
 
-        url = file["secure_url"]
+        scraped_words = wordreference_scraper.start()
+
+        vocabulary_anki_deck_creator = VocabularyAnkiDeckCreator(scraped_words,deck_name)
+
+        deck_file = vocabulary_anki_deck_creator.create()
+
+        url = deck_file["secure_url"]
         
         response = HttpResponseRedirect(url)
         
         return response
-
-
 
 def logout_view(request):
     logout(request)
