@@ -1,7 +1,9 @@
 
 {% extends 'scrapper/base.html' %}
 {% load static %}
-        
+
+{% block title %}Login | Vocabulary Scraper {% endblock %}
+
 {% block static_files %}
     <link href="{% static 'scrapper/css/pages/login.css'%}?={{ random_list | random }}" rel="stylesheet"/>
     

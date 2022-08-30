@@ -1,20 +1,22 @@
 {% extends 'scrapper/base.html' %}
 {% load static %}
 
+{% block title %}Translations | Vocabulary Scraper {% endblock %}
+
 {% block static_files %}
         <link href="{% static 'scrapper/css/pages/translations.css'%}?={{ random_list | random }}" rel="stylesheet"/>
 {% endblock %}
 
 {% block content %}
     <div class="translations container">
-        <div class="translations__tabs d-flex justify-content-center">
+        <!-- <div class="translations__tabs d-flex justify-content-center">
             <div class="translations__translation-tab mx-5">
                 <a href="">Translations</a>
             </div>
             <div class="translations__definition-tab mx-5">
                 <a href="">Definitions</a>
             </div>
-        </div>
+        </div> -->
         <div class="translations__container d-flex mx-auto justify-content-center">
             <form class="translations__form d-flex flex-column" method="POST" action="{% url 'scrapper:translations' %}">
                 {% csrf_token %}
