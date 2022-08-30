@@ -17,7 +17,7 @@ from .decorators import anonymous_required
 
 
 class LandingPageView(TemplateView):
-    template_name = "scrapper/landing-page.html"
+    template_name = "scrapper/pages/landing-page.html"
 
     @method_decorator(anonymous_required(redirect_url=reverse_lazy("scrapper:translations")))
     def dispatch(self,request,*args, **kwargs):
@@ -32,7 +32,7 @@ class LandingPageView(TemplateView):
 
 
 class LoginPageView(LoginView):
-    template_name = "scrapper/login.html"
+    template_name = "scrapper/pages/login.html"
     next_page = reverse_lazy("scrapper:translations")
 
     authentication_form = AuthenticationFormWithBootstrapClasses
@@ -47,7 +47,7 @@ class LoginPageView(LoginView):
 
 @method_decorator(login_required, name="dispatch")
 class TranslationsPageView(TemplateView):
-    template_name="scrapper/translations.html"
+    template_name="scrapper/pages/translations.html"
 
     def get_context_data(self,**kwargs):
         context = super().get_context_data(**kwargs)

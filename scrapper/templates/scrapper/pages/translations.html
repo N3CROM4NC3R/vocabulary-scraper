@@ -1,0 +1,66 @@
+{% extends 'scrapper/base.html' %}
+{% load static %}
+
+{% block static_files %}
+        <link href="{% static 'scrapper/css/pages/translations.css'%}?={{ random_list | random }}" rel="stylesheet"/>
+{% endblock %}
+
+{% block content %}
+    <div class="translations container">
+        <div class="translations__tabs d-flex justify-content-center">
+            <div class="translations__translation-tab mx-5">
+                <a href="">Translations</a>
+            </div>
+            <div class="translations__definition-tab mx-5">
+                <a href="">Definitions</a>
+            </div>
+        </div>
+        <div class="translations__container d-flex mx-auto justify-content-center">
+            <form class="translations__form d-flex flex-column" method="POST" action="{% url 'scrapper:translations' %}">
+                {% csrf_token %}
+                
+                <div class="d-md-flex justify-content-md-between align-items-center">
+                    <div class="translations__word-form">
+                        <div class="translations__input-container d-flex form-group">
+                            <input class="translations__input" id="translation-input" placeholder="Put a word">
+                            <div class="translations__button" id="new-word-button">
+                                <img src="{% static 'scrapper/images/add.svg' %}" />
+                            </div>
+                        </div>
+                        <div class="translations__word-list" id="translations-word-list">
+                        </div>
+                    </div>
+                    <div class="translations__option-form">
+                        <div class="translations__deck-name">
+                            <label class="label-form " for="deck-name">Deck name</label>
+                            <input name="deck_name" class="translations__deck-name-input form-control" type="text" required>
+                        </div>
+
+                        <div class="translations__principal-translation d-flex justify-content-between">
+                            <label for="principal-translation" class="form-label">Principal translation</label>
+                            <input name="principal-translation" id="principal-translation" type="checkbox">
+                        </div>
+                        <div class="translations__additional-translation d-flex justify-content-between">
+                            <label for="additional-translation" class="form-label">Additional translation</label>
+                            <input name="additional-translation" id="additional-translation" type="checkbox">
+                        </div>
+                        <div class="translations__compound-translation d-flex justify-content-between">
+                            <label for="compound-form" class="form-label">Compound form</label>
+                            <input name="compound-form" id="compound-translation" type="checkbox">
+                        </div>
+                        <div class="translations__verb-locution d-flex justify-content-between">
+                            <label for="verb-locution" class="form-label">Verb locution</label>
+                            <input name="verbal-elocution" id="verb-locution" type="checkbox">
+                        </div>
+                    </div>
+                </div>
+                <input type="submit" class="button mt-3" value="Create deck"/>
+
+            </form>
+        </div>
+    </div>
+{% endblock %}
+
+{% block bottom_static_files %}
+    <script src="{% static 'scrapper/js/translations.js' %}"></script>
+{% endblock %}

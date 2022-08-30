@@ -1,0 +1,26 @@
+{% if user.is_authenticated %}
+    <nav class="custom-navbar navbar navbar-expand-sm">
+        <div class="container-fluid">
+            <a class="navbar-brand--custom navbar-brand" href="{% url "scrapper:translations" %}">Vocabulary</a>
+            <ul class="nav navbar-nav">
+                <li class="nav-item dropdown">
+                    <a class="nav-link nav-link--custom dropdown-toggle" href="#" role="button" id="dropdownMenu" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fas fa-user"></i>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenu" >
+                        <a class="dropdown-item" href="#">{{ request.user.email }}</a>
+                        <a class="dropdown-item" href="{% url "scrapper:logout" %}">Logout</a>
+                    </div>
+            
+                    
+                </li>
+            </ul>
+        </div>
+    </nav>
+{% else %}
+    <div class="custom-navbar navbar ">
+        <ul class="nav">
+            <li class="nav-item">Vocabulary</li>
+        </ul>
+    </div>
+{% endif %}
