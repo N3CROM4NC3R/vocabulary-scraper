@@ -1,4 +1,12 @@
 function app(){
+    
+    function downloadFile(url){
+        const link = document.createElement("a");
+        link.href = url;
+        link.click();
+    }
+
+
     function deleteWord(e){
         newWordContainer = e.target.parentElement.parentElement;
         newWordContainer.remove();
@@ -59,9 +67,103 @@ function app(){
 
         translationList.appendChild(newWordContainer);
     }
+       //Function to send all data to the backend
+       async function sendingData(){
+        words = document.getElementsByName("words[]");
+        wordList = []
+        
+        for(let i = 0; i < words.length; i++){
+            wordList.push(words[i].value);
+        }
 
+        deckName = document.getElementById("deck_name").value;
+        
+        principalTranslation = document.getElementById("principal-translation").checked;
+        additionalTranslation = document.getElementById("additional-translation").checked;
+        compoundTranslation = document.getElementById("compound-translation").checked;
+        verbLocution = document.getElementById("verb-locution").checked;
+        console.log(verbLocution)
+        data = {
+            deck_name:deckName,
+            words:wordList,
+            "principal_translations":principalTranslation,
+            "additional_translations":additionalTranslation,
+            "compound_form":compoundTranslation,
+            "verbal_locution":verbLocution
+        };
+        console.log(data)
+
+        csrfToken = document.getElementsByName("csrfmiddlewaretoken")[0];
+        csrfToken = csrfToken.value
+        
+        let headers = new Headers({
+            "X-CSRFToken":csrfToken
+        });
+
+        request_data = {
+            method : 'POST',
+            headers,
+            body : JSON.stringify(data)
+        }
+
+        let res = await fetch("/translations",request_data);
+        
+        return res;
+    }
+    //Event when the user submits the form, therefore, he creates the deck
+    async function submitWords(event){
+        event.preventDefault();
+        
+        Swal.fire({
+            html:"Are you sure you want to make a new deck?",
+            background:'#1C658C',
+            color:"#FFFFFF",
+            confirmButtonColor: '#3B8EB9',
+            preConfirm: () => {
+                Swal.update({
+                    "html":"Please wait<br/>Making the deck",
+                    showConfirmButton:false
+                });
+                Swal.showLoading();
+                return sendingData().then(response => {
+                    if(!response.ok){
+                        throw new Error(response.statusText)
+                    }
+                    return response.json()
+                })
+                .catch(error => {
+                    Swal.showValidationMessage(
+                        `Request failed: ${error}`
+                    )
+                });
+    
+            },
+            showConfirmButton:true,
+            customClass:{
+                loader:"loader"
+            },
+            allowOutsideClick: () => !Swal.isLoading()
+        }).then((result) => {
+            if(result.isConfirmed){
+                url = result.value.downloadUrl;
+
+                downloadFile(url);
+
+                Swal.fire({
+                    title:"Done",
+                    background:'#1C658C',
+                    color:"#FFFFFF",
+                    confirmButtonColor: '#3B8EB9',
+                });
+            }
+        });
+    }
     addWordButton = document.getElementById("new-word-button");
     
     addWordButton.addEventListener("click",addWord);
+    
+    translationsForm = document.getElementById("translations-form");
+
+    translationsForm.addEventListener("submit",submitWords);
 
 };app();

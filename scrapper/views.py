@@ -1,16 +1,16 @@
-from django.shortcuts import redirect, render
-from django.urls import reverse, reverse_lazy
-from django.http import HttpResponse, HttpResponseRedirect
+from django.shortcuts import redirect
+from django.urls import reverse_lazy
+from django.http import JsonResponse
 from django.views.generic.base import TemplateView
 from django.contrib.auth.views import LoginView
-from scrapper.forms import AuthenticationFormWithBootstrapClasses
+from scrapper.forms import AuthenticationFormWithBootstrapClasses, TranslationForm
 from .utils import VocabularyAnkiDeckCreator
 from wordreference_scraper.wordreference_scraper import WordreferenceScraper
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.contrib.auth import logout
-import mimetypes
-from django.views.decorators.csrf import csrf_exempt
+
+import json
 
 from .decorators import anonymous_required
 
@@ -36,7 +36,7 @@ class LoginPageView(LoginView):
     next_page = reverse_lazy("scrapper:translations")
 
     authentication_form = AuthenticationFormWithBootstrapClasses
-
+    
     
 
     def get_context_data(self, **kwargs):
@@ -48,6 +48,9 @@ class LoginPageView(LoginView):
 @method_decorator(login_required, name="dispatch")
 class TranslationsPageView(TemplateView):
     template_name="scrapper/pages/translations.html"
+    
+    form_class = TranslationForm
+
 
     def get_context_data(self,**kwargs):
         context = super().get_context_data(**kwargs)
@@ -56,19 +59,29 @@ class TranslationsPageView(TemplateView):
 
         context["request"] = self.request
 
+        context["form"] = self.form_class()
+
         return context
     def post(self, request, *args, **kwargs):
 
-        words = request.POST.getlist("words[]")
+        data = json.loads(request.body)
+
+        translation_form = TranslationForm(data)
+
         
+        translation_form.is_valid()
+
+        cleaned_data = translation_form.cleaned_data
         options = {
-            "principal-translation"  : bool(request.POST.get("principal-translation",False)),
-            "additional-translation" : bool(request.POST.get("additional-translation",False)),
-            "compound-form"          : bool(request.POST.get("compound-form",False)),
-            "verbal-elocution"       : bool(request.POST.get("verbal-elocution",False))
+            "principal-translation"  : cleaned_data["principal_translations"],
+            "additional-translation" : cleaned_data["additional_translations"],
+            "compound-form"          : cleaned_data["compound_form"],
+            "verbal-elocution"       : cleaned_data["verbal_locution"]
         }
 
-        deck_name = request.POST["deck_name"]
+        deck_name = cleaned_data["deck_name"]
+        words = cleaned_data["words"]
+
         
         wordreference_scraper = WordreferenceScraper(words)
 
@@ -80,8 +93,13 @@ class TranslationsPageView(TemplateView):
 
         url = deck_file["secure_url"]
         
-        response = HttpResponseRedirect(url)
-        
+        response_data = {
+            'status':"ok",
+            'downloadUrl':url
+        }
+
+        response = JsonResponse(response_data)
+
         return response
 
 def logout_view(request):

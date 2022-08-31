@@ -145,3 +145,5 @@ class VocabularyAnkiDeckCreator():
         
 
 
+def get_number_words(request):
+    words = request.POST.get("words",)

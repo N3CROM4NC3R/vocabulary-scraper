@@ -1,5 +1,7 @@
-from django.test import TestCase
+from django.test import TestCase, RequestFactory
 from django.urls import reverse
+from scrapper.utils import get_number_words
+import json
 
 from scrapper.models import CustomUser as User
 
@@ -37,7 +39,7 @@ class LoginViewTest(TestCase):
 
         self.assertEqual(response.status_code, 200)
 
-        self.assertTemplateUsed(response, 'scrapper/login.html')
+        self.assertTemplateUsed(response, 'scrapper/pages/login.html')
 
 
     def test_guest_can_log_in(self):
@@ -52,7 +54,7 @@ class LoginViewTest(TestCase):
 
 
 class TranslationViewTest(TestCase):
-    
+
     def logged_user(self):
         user = User.objects.create_user(username="testuser")
         user.set_password("12345")
@@ -76,7 +78,7 @@ class TranslationViewTest(TestCase):
 
         response = self.client.get(reverse("scrapper:translations"))
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "scrapper/translations.html")
+        self.assertTemplateUsed(response, "scrapper/pages/translations.html")
 
     def test_logged_user_can_create_a_deck_with_translated_words(self):
         
@@ -84,15 +86,10 @@ class TranslationViewTest(TestCase):
 
         deck_name = "vocabulary"
 
-        options = {
-           
-        }
-
         words = ["get"]
 
         data = {
             "deck_name" : deck_name,
-            "options":options,
             "words" : words,
             "principal-translation": True,
             "additional-translation": True,
@@ -100,11 +97,14 @@ class TranslationViewTest(TestCase):
             "verbal-elocution": True,
         }
 
-        response = self.client.post(reverse("scrapper:translations"),data)
+        json_data = json.dumps(data)
 
-        self.assertEqual(response.status_code, 302)
+        response = self.client.post(reverse("scrapper:translations"),json_data,content_type="application/json")
 
-        redirected_url = response["Location"]
+        self.assertEqual(response.status_code, 200)
+        
+        json_response = json.loads(response.content)
+        redirected_url = json_response["downloadUrl"]
 
         self.assertIn("https://res.cloudinary.com", redirected_url)
 
@@ -118,5 +118,3 @@ class TranslationViewTest(TestCase):
         self.assertEqual(response.status_code,302)
         self.assertEqual(response['location'], reverse("scrapper:translations"))
 
-
-        
