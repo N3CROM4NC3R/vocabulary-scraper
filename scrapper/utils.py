@@ -99,7 +99,6 @@ class VocabularyAnkiDeckCreator():
 
         deck_id = random.randrange(1, 10)
 
-        """ TODO: That the user can change the name of the deck via another argument than "-o" """
         my_deck = genanki.Deck(deck_id, self.deck_name)
 
         list_anki_notes = self.list_anki_notes
@@ -124,7 +123,7 @@ class VocabularyAnkiDeckCreator():
         package.write_to_file(f)
         f.seek(0)
 
-        file = cloudinary.uploader.upload(f,resource_type="raw")
+        file = cloudinary.uploader.upload(f, resource_type="raw", use_filename=True)
 
         return file
 

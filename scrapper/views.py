@@ -1,20 +1,18 @@
+import json
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.http import JsonResponse
 from django.views.generic.base import TemplateView
 from django.contrib.auth.views import LoginView
-from scrapper.forms import AuthenticationFormWithBootstrapClasses, TranslationForm
-from .utils import VocabularyAnkiDeckCreator
-from wordreference_scraper.wordreference_scraper import WordreferenceScraper
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.contrib.auth import logout
 
-import json
 
+from wordreference_scraper.wordreference_scraper import WordreferenceScraper
+from scrapper.forms import AuthenticationFormWithBootstrapClasses, TranslationForm
+from .utils import VocabularyAnkiDeckCreator
 from .decorators import anonymous_required
-
-
 
 class LandingPageView(TemplateView):
     template_name = "scrapper/pages/landing-page.html"
@@ -30,15 +28,12 @@ class LandingPageView(TemplateView):
 
         return context
 
-
 class LoginPageView(LoginView):
     template_name = "scrapper/pages/login.html"
     next_page = reverse_lazy("scrapper:translations")
 
     authentication_form = AuthenticationFormWithBootstrapClasses
     
-    
-
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
@@ -94,8 +89,9 @@ class TranslationsPageView(TemplateView):
         url = deck_file["secure_url"]
         
         response_data = {
-            'status':"ok",
-            'downloadUrl':url
+            'status' : "ok",
+            'downloadUrl' : url,
+            "name": deck_name,
         }
 
         response = JsonResponse(response_data)

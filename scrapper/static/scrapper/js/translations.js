@@ -1,17 +1,23 @@
 function app(){
     
-    function downloadFile(url){
-        const link = document.createElement("a");
+    function downloadFile(url, name){
+        var link = document.createElement("a");
+        var url = 'data:text/plain,' + url
         link.href = url;
+        link.download = name + ".apkg";
+        console.log(url, name);
+        document.body.appendChild(link);
         link.click();
+        document.body.removeChild(link);
+        delete link;
     }
-
 
     function deleteWord(e){
         newWordContainer = e.target.parentElement.parentElement;
         newWordContainer.remove();
     }
 
+    //Event to edit the word
     function editWord(e){
         wordInput = e.target.parentElement.previousElementSibling;
         
@@ -23,8 +29,7 @@ function app(){
     }
 
 
-
-
+    //Adding a new word to the list of words
     function addWord(e){
         translationList = document.getElementById("translations-word-list");
         translationWordInput = document.getElementById("translation-input");
@@ -91,7 +96,6 @@ function app(){
             "compound_form":compoundTranslation,
             "verbal_locution":verbLocution
         };
-        console.log(data)
 
         csrfToken = document.getElementsByName("csrfmiddlewaretoken")[0];
         csrfToken = csrfToken.value
@@ -113,7 +117,7 @@ function app(){
     //Event when the user submits the form, therefore, he creates the deck
     async function submitWords(event){
         event.preventDefault();
-        
+
         Swal.fire({
             html:"Are you sure you want to make a new deck?",
             background:'#1C658C',
@@ -145,9 +149,10 @@ function app(){
             allowOutsideClick: () => !Swal.isLoading()
         }).then((result) => {
             if(result.isConfirmed){
-                url = result.value.downloadUrl;
+                let url = result.value.downloadUrl;
+                let name = result.value.name;
 
-                downloadFile(url);
+                downloadFile(url,name);
 
                 Swal.fire({
                     title:"Done",
