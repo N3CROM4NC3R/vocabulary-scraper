@@ -17,11 +17,6 @@ import cloudinary
 import cloudinary.uploader
 import cloudinary.api
 
-cloudinary.config( 
-  cloud_name = "dvewfvkws", 
-  api_key = "639475722635831", 
-  api_secret = "Wy5Rd5PXR_Df6AOltH9y93JOxq4" 
-)
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -33,7 +28,7 @@ environ.Env.read_env(os.path.join(BASE_DIR,'.env'))
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-bbuckxmhecb9i$ywq4dv_0dxdv=xvwjya*(!$ja=#+^=hqyo0e'
+SECRET_KEY = env("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -43,10 +38,6 @@ ALLOWED_HOSTS = [
     '0.0.0.0',
     '127.0.0.1',
     'localhost',
-    "http://vocabulary-scrapper-dev.sa-east-1.elasticbeanstalk.com/",
-    "http://vocabulary-scrapper-dev.sa-east-1.elasticbeanstalk.com",
-    "vocabulary-scrapper-dev.sa-east-1.elasticbeanstalk.com",
-    "172.31.15.67"
 ]
 
 MEDIA_DIR = BASE_DIR / 'media'
@@ -117,11 +108,11 @@ else:
     DATABASES = {
     'default': {
         'ENGINE':'django.db.backends.mysql',
-        'NAME':'scraper',
-        'USER':'root',
-        'PASSWORD':'rootuser',
-        'PORT':3306,
-        'HOST':'127.0.0.1'
+        'NAME':env("DATABASE_NAME"),
+        'USER':env("DATABASE_USER"),
+        'PASSWORD':env("DATABASE_PASS"),
+        'PORT':env("DATABASE_PORT"),
+        'HOST':env("DATABASE_HOST")
     }
 }
 
@@ -177,3 +168,8 @@ CSRF_TRUSTED_ORIGINS = [
     'https://thawing-mountain-61550.herokuapp.com',
 ]
 
+cloudinary.config( 
+  cloud_name = env("CLOUDINARY_CLOUD_NAME"), 
+  api_key = env("CLOUDINARY_API_KEY"), 
+  api_secret = env("CLOUDINARY_API_SECRET") 
+)
