@@ -2,14 +2,14 @@ function app(){
     
     function downloadFile(url, name){
         var link = document.createElement("a");
-        var url = 'data:text/plain,' + url
+        //var url = 'data:text/plain,' + url
         link.href = url;
-        link.download = name + ".apkg";
         console.log(url, name);
+        link.download = name;
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
-        delete link;
+        delete link;2
     }
 
     function deleteWord(e){
