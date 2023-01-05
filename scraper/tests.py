@@ -1,9 +1,9 @@
 from django.test import TestCase, RequestFactory
 from django.urls import reverse
-from scrapper.utils import get_number_words
+from scraper.utils import get_number_words
 import json
 
-from scrapper.models import CustomUser as User
+from scraper.models import CustomUser as User
 
 # Create your tests here.
 
@@ -12,7 +12,7 @@ class LandingPageViewTest(TestCase):
 
     def test_user_can_see_landing_page(self):
 
-        response = self.client.get(reverse("scrapper:landingPage"))
+        response = self.client.get(reverse("scraper:landingPage"))
 
         self.assertEqual(response.status_code,200)
 
@@ -28,18 +28,18 @@ class LandingPageViewTest(TestCase):
 
         login = self.client.login(username = "admin",password = "12345")
         
-        response = self.client.get(reverse("scrapper:landingPage"))
+        response = self.client.get(reverse("scraper:landingPage"))
 
         self.assertEqual(response.status_code,"308") """
 
         
 class LoginViewTest(TestCase):
     def test_guest_can_access_page(self):
-        response = self.client.get(reverse("scrapper:login"))
+        response = self.client.get(reverse("scraper:login"))
 
         self.assertEqual(response.status_code, 200)
 
-        self.assertTemplateUsed(response, 'scrapper/pages/login.html')
+        self.assertTemplateUsed(response, 'scraper/pages/login.html')
 
 
     def test_guest_can_log_in(self):
@@ -51,7 +51,6 @@ class LoginViewTest(TestCase):
         login = self.client.login(username = "admin",password = "12345")
 
         self.assertTrue(login)
-
 
 class TranslationViewTest(TestCase):
 
@@ -67,7 +66,7 @@ class TranslationViewTest(TestCase):
 
     def test_guest_cant_access_page(self):
 
-        response = self.client.get(reverse("scrapper:translations"))
+        response = self.client.get(reverse("scraper:translations"))
         
         self.assertEqual(response.status_code, 302)
 
@@ -75,10 +74,10 @@ class TranslationViewTest(TestCase):
 
         user = self.logged_user()
 
-
-        response = self.client.get(reverse("scrapper:translations"))
+        response = self.client.get(reverse("scraper:translations"))
+        
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "scrapper/pages/translations.html")
+        self.assertTemplateUsed(response, "scraper/pages/translations.html")
 
     def test_logged_user_can_create_a_deck_with_translated_words(self):
         
@@ -99,7 +98,7 @@ class TranslationViewTest(TestCase):
 
         json_data = json.dumps(data)
 
-        response = self.client.post(reverse("scrapper:translations"),json_data,content_type="application/json")
+        response = self.client.post(reverse("scraper:translations"),json_data,content_type="application/json")
 
         self.assertEqual(response.status_code, 200)
         
@@ -113,8 +112,8 @@ class TranslationViewTest(TestCase):
 
         user = self.logged_user()
 
-        response = self.client.get(reverse("scrapper:login"))
+        response = self.client.get(reverse("scraper:login"))
 
         self.assertEqual(response.status_code,302)
-        self.assertEqual(response['location'], reverse("scrapper:translations"))
+        self.assertEqual(response['location'], reverse("scraper:translations"))
 

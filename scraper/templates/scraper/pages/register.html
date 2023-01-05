@@ -1,0 +1,43 @@
+{% extends 'scraper/base.html' %}
+{% load static %}
+
+
+{% block title %}Register | Vocabulary Scraper {% endblock %}
+
+
+{% block content %}
+
+
+<div class="d-flex align-items-center">
+    <div class="register__form-container flex-grow-1 container-sm">
+        {% if form.errors %}
+        <div class="register__form-error container alert alert-danger px-3"> 
+            <p> Your email and password didn't match. Please try again. </p>
+        </div>
+        {% endif %}
+            <!-- {{ register_form }}    -->
+            <form class="register__form container py-3" method="post" action="{% url 'scraper:login' %}">
+                {% csrf_token %}
+
+                <div class="register__form-input form-group">
+                    {{ register_form.username.errors }}
+                    <label class="form-label" for="{{ form.username.auto_id }}">{{ register_form.username.label }}</label>
+                    {{ register_form.username }}
+                </div>
+
+                <div class="register__form-input form-group">
+                    {{ register_form.password1.errors }}
+                    <label class="form-label" for="{{ form.password.auto_id }}">{{ register_form.password1.label }}</label>
+                    {{ register_form.password1 }}
+                </div>
+            
+                <button class="button button--register d-block mx-auto my-3" type="submit">Register</button>
+                <input type="hidden" name="next" value="{{ next }}"/>
+
+                <p class="text-center">If you already have an account, <a href="/login">login</a> instead.</p>
+            </form>
+        </div>                 
+        
+    </div>
+</div>
+{% endblock %}

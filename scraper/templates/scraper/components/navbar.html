@@ -1,7 +1,7 @@
 {% if user.is_authenticated %}
     <nav class="custom-navbar navbar navbar-expand-sm">
         <div class="container-fluid">
-            <a class="navbar-brand--custom navbar-brand" href="{% url "scrapper:translations" %}">Vocabulary</a>
+            <a class="navbar-brand--custom navbar-brand" href="{% url "scraper:translations" %}">Vocabulary</a>
             <ul class="nav navbar-nav">
                 <li class="nav-item dropdown">
                     <a class="nav-link nav-link--custom dropdown-toggle" href="#" role="button" id="dropdownMenu" data-bs-toggle="dropdown" aria-expanded="false">
@@ -9,7 +9,7 @@
                     </a>
                     <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenu" >
                         <a class="dropdown-item" href="#">{{ request.user.email }}</a>
-                        <a class="dropdown-item" href="{% url "scrapper:logout" %}">Logout</a>
+                        <a class="dropdown-item" href="{% url "scraper:logout" %}">Logout</a>
                     </div>
             
                     

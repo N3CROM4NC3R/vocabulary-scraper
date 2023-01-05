@@ -1,5 +1,5 @@
 from django.core.management.base import BaseCommand
-from scrapper.models import CustomUser
+from scraper.models import CustomUser
 
 
 class Command(BaseCommand):

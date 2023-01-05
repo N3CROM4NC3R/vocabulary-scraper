@@ -1,5 +1,5 @@
 
-{% extends 'scrapper/base.html' %}
+{% extends 'scraper/base.html' %}
 {% load static %}
 
 {% block title %}Login | Vocabulary Scraper {% endblock %}
@@ -20,7 +20,7 @@
             </div>
             {% endif %}
 
-            <form class="login__form container py-3" method="post" action="{% url 'scrapper:login' %}">
+            <form class="login__form container py-3" method="post" action="{% url 'scraper:login' %}">
                 {% csrf_token %}
                 <div class="login__form-input form-group">
                     {{ form.username.errors }}

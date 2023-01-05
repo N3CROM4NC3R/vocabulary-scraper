@@ -1,7 +1,8 @@
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import get_user_model
-from . import widgets
 from django import forms
+
+from . import widgets
 
 class AuthenticationFormWithBootstrapClasses(AuthenticationForm):
     

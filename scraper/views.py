@@ -1,8 +1,8 @@
 import json
-from django.shortcuts import redirect
+from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.http import JsonResponse
-from django.views.generic.base import TemplateView
+from django.views.generic.base import TemplateView, View
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
@@ -10,14 +10,14 @@ from django.contrib.auth import logout
 
 
 from wordreference_scraper.wordreference_scraper import WordreferenceScraper
-from scrapper.forms import AuthenticationFormWithBootstrapClasses, TranslationForm
+from scraper.forms import AuthenticationFormWithBootstrapClasses, TranslationForm
 from .utils import VocabularyAnkiDeckCreator
 from .decorators import anonymous_required
 
 class LandingPageView(TemplateView):
-    template_name = "scrapper/pages/landing-page.html"
+    template_name = "scraper/pages/landing-page.html"
 
-    @method_decorator(anonymous_required(redirect_url=reverse_lazy("scrapper:translations")))
+    @method_decorator(anonymous_required(redirect_url=reverse_lazy("scraper:translations")))
     def dispatch(self,request,*args, **kwargs):
         return super().dispatch(request,*args,**kwargs)
 
@@ -29,8 +29,8 @@ class LandingPageView(TemplateView):
         return context
 
 class LoginPageView(LoginView):
-    template_name = "scrapper/pages/login.html"
-    next_page = reverse_lazy("scrapper:translations")
+    template_name = "scraper/pages/login.html"
+    next_page = reverse_lazy("scraper:translations")
 
     authentication_form = AuthenticationFormWithBootstrapClasses
     
@@ -42,7 +42,7 @@ class LoginPageView(LoginView):
 
 @method_decorator(login_required, name="dispatch")
 class TranslationsPageView(TemplateView):
-    template_name="scrapper/pages/translations.html"
+    template_name="scraper/pages/translations.html"
     
     form_class = TranslationForm
 
@@ -101,7 +101,7 @@ class TranslationsPageView(TemplateView):
 def logout_view(request):
     logout(request)
 
-    return redirect(reverse_lazy("scrapper:landingPage"))
+    return redirect(reverse_lazy("scraper:landingPage"))
 
 
 

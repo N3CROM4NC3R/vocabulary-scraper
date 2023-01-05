@@ -4,21 +4,21 @@
         {% load static %}
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
      
-        {% include 'scrapper/components/default_static_files.html' %}
+        {% include 'scraper/components/default_static_files.html' %}
 
         {% block static_files %}{% endblock %}
     </head>
     <body>
         <div class="app">
             
-            {% include 'scrapper/components/navbar.html' %}
+            {% include 'scraper/components/navbar.html' %}
 
             <div class="app-wrapper">
                 {% block content %}
                 {% endblock %}
             </div>
 
-            {% include 'scrapper/components/footer.html' %}
+            {% include 'scraper/components/footer.html' %}
 
         </div>
         {% block bottom_static_files %}{% endblock %}

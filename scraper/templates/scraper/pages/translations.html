@@ -1,4 +1,4 @@
-{% extends 'scrapper/base.html' %}
+{% extends 'scraper/base.html' %}
 {% load static %}
 
 {% block title %}Translations | Vocabulary Scraper {% endblock %}
@@ -20,7 +20,7 @@
             </div>
         </div> -->
         <div class="translations__container d-flex mx-auto justify-content-center">
-            <form class="translations__form d-flex flex-column" id="translations-form" method="POST" action="{% url 'scrapper:translations' %}">
+            <form class="translations__form d-flex flex-column" id="translations-form" method="POST" action="{% url 'scraper:translations' %}">
                 {% csrf_token %}
                 
                 <div class="d-md-flex justify-content-md-between align-items-center">
